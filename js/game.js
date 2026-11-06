@@ -1,20 +1,49 @@
 let p = {};
 let generoAtual = "Masculino";
 let cidadeAtual = "Porto";
-let estiloCabelo = "👨‍💼 Clássico";
+
+// Listas e Índices de Customização
+let idxCabelo = 0;
+let idxCor = 0;
+let idxPele = 0;
+let idxOlhos = 0;
+
+const tiposCabelo = ["Liso/Clássico", "Encaracolado", "Ondulado/Longo", "Careca/Cortado", "Crista/Moderno"];
+const iconesCabeloMasculino = ["🧔", "🧑‍🦱", "👱", "👨‍🦲", "🦹"];
+const iconesCabeloFeminino = ["👩", "👩‍🦱", "👩‍🦰", "👩‍🦲", "👱‍♀️"];
+
+const coresCabelo = ["Castanho", "Loiro", "Ruivo", "Preto", "Colorido/Azul"];
+const tonsPele = ["Claro", "Médio/Moreno", "Escuro", "Pálido"];
+const modificadoresPele = ["🏼", "🏽", "🏾", "🏻"];
+
+const tiposOlhos = ["Normal", "Feliz", "Óculos Escuros", "Óculos de Grau", "Piscando"];
+const iconesOlhos = [" [ 😐 ] ", " [ ^_^ ] ", " [ 😎 ] ", " [ 🤓 ] ", " [ 😉 ] "];
 
 const cidadesLista = ["Porto", "Lisboa", "Braga", "Coimbra", "Faro"];
-const cabelosLista = ["👨‍💼 Clássico", "🧑‍🦱 Encaracolado", "👨‍🦲 Careca", "👱‍♂️ Loiro", "👩‍🦰 Ruivo"];
 
 function alternarGenero() {
     generoAtual = generoAtual === "Masculino" ? "Feminino" : "Masculino";
     document.getElementById('btn-genero').innerText = generoAtual === "Masculino" ? "♂️ Masculino" : "♀️ Feminino";
 }
 
-function alternarCabelo() {
-    let idx = cabelosLista.indexOf(estiloCabelo);
-    estiloCabelo = cabelosLista[(idx + 1) % cabelosLista.length];
-    document.getElementById('btn-cabelo').innerText = estiloCabelo;
+function alternarTipoCabelo() {
+    idxCabelo = (idxCabelo + 1) % tiposCabelo.length;
+    document.getElementById('btn-tipo-cabelo').innerText = `💇‍♂️ ${tiposCabelo[idxCabelo]}`;
+}
+
+function alternarCorCabelo() {
+    idxCor = (idxCor + 1) % coresCabelo.length;
+    document.getElementById('btn-cor-cabelo').innerText = `🎨 ${coresCabelo[idxCor]}`;
+}
+
+function alternarPele() {
+    idxPele = (idxPele + 1) % tonsPele.length;
+    document.getElementById('btn-pele').innerText = `${modificadoresPele[idxPele]} ${tonsPele[idxPele]}`;
+}
+
+function alternarOlhos() {
+    idxOlhos = (idxOlhos + 1) % tiposOlhos.length;
+    document.getElementById('btn-olhos').innerText = `👁️ ${tiposOlhos[idxOlhos]}`;
 }
 
 function alternarCidade() {
@@ -27,11 +56,17 @@ function iniciarJogo() {
     let nomeInput = document.getElementById('player-name').value.trim();
     if(!nomeInput) nomeInput = "Marco Silva";
 
+    // Define o topo (cabelo + pele) gerado pelas escolhas do menu
+    let baseCabelo = generoAtual === "Masculino" ? iconesCabeloMasculino[idxCabelo] : iconesCabeloFeminino[idxCabelo];
+    // Se não for careca, injeta o tom de pele no emoji de cabelo do iOS/iPhone
+    let avatarTopo = idxCabelo === 3 ? "👨‍🦲" : baseCabelo + modificadoresPele[idxPele];
+
     p = {
         nome: nomeInput, idade: 0, dinheiro: 1000, 
         cunha: Math.floor(Math.random() * 40) + 10,
         saude: 100, felicidade: 90, emprego: "Bebé", vivo: true,
-        genero: generoAtual, cidade: cidadeAtual, avatarBase: estiloCabelo.split(" ")[0],
+        genero: generoAtual, cidade: cidadeAtual,
+        avatarCabelo: avatarTopo, avatarOlhos: iconesOlhos[idxOlhos],
         loucura: Math.floor(Math.random() * 100), karma: Math.floor(Math.random() * 40) + 60,
         bens: []
     };
@@ -43,7 +78,7 @@ function iniciarJogo() {
     document.getElementById('ui-detalhes').innerText = `${p.genero} | ${p.cidade}`;
     
     atualizarUI();
-    logar(`✨ Nasceste em ${p.cidade}! Loucura inicial: ${p.loucura}%, Karma: ${p.karma}%.`);
+    logar(`✨ Nasceste em ${p.cidade}! Loucura: ${p.loucura}%, Karma: ${p.karma}%. Cabelo: ${coresCabelo[idxCor]}.`);
 }
 
 function atualizarUI() {
@@ -56,18 +91,19 @@ function atualizarUI() {
     document.getElementById('ui-loucura').innerText = `${p.loucura}%`;
     document.getElementById('ui-karma').innerText = `${p.karma}%`;
 
-    // Atualização de Avatar baseado na idade
-    let av = p.avatarBase;
-    if(!p.vivo) av = "💀";
-    else if(p.idade < 3) av = "👶";
-    else if(p.idade > 65) av = p.genero === "Feminino" ? "👵" : "👴";
-    document.getElementById('ui-avatar').innerText = av;
+    // Atualização de Avatar estruturada passo a passo
+    if(!p.vivo) {
+        document.getElementById('ui-avatar').innerHTML = "💀<br>[ X_X ]";
+    } else if(p.idade < 3) {
+        document.getElementById('ui-avatar').innerHTML = "👶<br>[ 😐 ]";
+    } else {
+        // Junta o Cabelo/Pele customizado com o formato de Olhos escolhido
+        document.getElementById('ui-avatar').innerHTML = `${p.avatarCabelo}<br>${p.avatarOlhos}`;
+    }
 
-    // Gerir visibilidade do botão da Escola
     let btnEscola = document.getElementById('btn-estudar');
     if(p.idade >= 6 && p.idade < 18) { btnEscola.style.display = "block"; } else { btnEscola.style.display = "none"; }
 
-    // Atualizar bloco de bens comprados
     let assetsBox = document.getElementById('ui-assets');
     if(p.bens.length > 0) {
         assetsBox.classList.remove('hidden');
@@ -89,24 +125,22 @@ function envelhecer() {
     if(!p.vivo) return;
     p.idade++;
 
-    // Descontar custos de carros e casas e aplicar ordenados
     let custosBens = p.bens.length * 80;
     p.dinheiro -= custosBens;
-    if(custosBens > 0) logar(`💸 Pagaste ${custosBens}€ em impostos de circulação e condomínios.`);
+    if(custosBens > 0) logar(`💸 Pagaste ${custosBens}€ em despesas de manutenção.`);
 
     let salarios = { "Bebé": 0, "Estudante": 0, "Desempregado": 0, "Técnico de IT": 1800, "Deputado": 3800, "Administrador": 7500 };
     let ganho = salarios[p.emprego] || 0;
     if(ganho > 0) {
         let irs = Math.floor(ganho * 0.30);
         p.dinheiro += (ganho - irs);
-        document.getElementById('ui-dinheiro').innerText = `${p.dinheiro}€`;
     }
 
-    if(p.idade === 6) { p.emprego = "Estudante"; logar("🎒 Entraste para a escola pública!"); }
+    if(p.idade === 6) { p.emprego = "Estudante"; logar("🎒 Entraste para a escola!"); }
     if(p.idade === 18 && p.emprego === "Estudante") { p.emprego = "Desempregado"; logar("🎓 Terminaste o secundário."); }
 
     if(p.idade > 70) p.saude -= Math.floor(Math.random() * 10);
-    if(p.saude <= 0) { p.vivo = false; logar(`💀 Faleceu de causas naturais aos ${p.idade} anos.`); }
+    if(p.saude <= 0) { p.vivo = false; logar(`💀 Faleceu aos ${p.idade} anos.`); }
     atualizarUI();
 }
 
@@ -114,10 +148,10 @@ function atividadesEstudante() {
     if(Math.random() > 0.5) {
         p.cunha = Math.min(100, p.cunha + 12);
         p.karma = Math.max(0, p.karma - 10);
-        logar("🎓 Entraste na Associação de Estudantes! Aprendeste a arte do 'tacho' (+Cunha, -Karma).");
+        logar("🎓 Entraste na Associação de Estudantes! (+Cunha, -Karma).");
     } else {
         p.felicidade = Math.min(100, p.felicidade + 15);
-        logar("📚 Estudaste no café central com amigos. Estás mais inteligente e feliz!");
+        logar("📚 Estudaste bastante com os teus colegas de turma.");
     }
     atualizarUI();
 }
@@ -127,35 +161,34 @@ function abrirStand() {
     if(op === "1") {
         if(p.dinheiro < 800) { alert("Sem dinheiro!"); return; }
         p.dinheiro -= 800; p.bens.push("Datsun 1200 🚗"); p.felicidade = Math.min(100, p.felicidade + 20);
-        logar("🚗 Compraste um Datsun clássico! As viagens à esplanada aumentaram a tua Felicidade.");
+        logar("🚗 Compraste um Datsun clássico!");
     } else if(op === "2") {
         if(p.dinheiro < 5000) { alert("Sem dinheiro!"); return; }
         p.dinheiro -= 5000; p.bens.push("T1 em Lisboa 🏠"); p.felicidade = Math.min(100, p.felicidade + 30);
-        logar("🏠 Compraste um T1 em Lisboa! Já és considerado um investidor imobiliário de elite.");
+        logar("🏠 Compraste um T1 em Lisboa!");
     }
     atualizarUI();
 }
 
 function procurarEmprego() {
     if(p.idade < 18) { logar("❌ Demasiado novo."); return; }
-    if(p.cunha > 65) { p.emprego = "Administrador"; logar("💼 Ajustes diretos garantiram-te a chefia de uma empresa estatal!"); }
+    if(p.cunha > 65) { p.emprego = "Administrador"; logar("💼 Ajustes diretos garantiram-te a chefia de uma estatal!"); }
     else if(p.cunha > 40) { p.emprego = "Deputado"; logar("💼 Conseguiste colocação nas listas partidárias!"); }
-    else { p.emprego = "Técnico de IT"; logar("💼 Contratado numa consultora em Lisboa."); }
+    else { p.emprego = "Técnico de IT"; logar("💼 Contratado numa consultora."); }
     atualizarUI();
 }
 
 function tentarCrime() {
-    // A Loucura aumenta o ganho mas diminui o Karma. Cunha alta ajuda a safar!
     let fatorSucesso = (p.cunha + p.karma) / 2;
     if(p.loucura > 70) fatorSucesso -= 15; 
 
     if(Math.random() * 100 < fatorSucesso) {
         let roubo = p.loucura > 50 ? 5000 : 1500;
         p.dinheiro += roubo; p.karma = Math.max(0, p.karma - 15);
-        logar(`💰 Esquema milionário funcionou! Lucro: ${roubo}€ devido ao teu fator Loucura (-Karma).`);
+        logar(`💰 Esquema funcionou! Lucro: ${roubo}€ (-Karma).`);
     } else {
         p.dinheiro = Math.max(0, p.dinheiro - 1500); p.felicidade -= 25; p.saude -= 10;
-        logar("🚨 Foste apanhado nas escutas telefónicas da Judiciária! Tiveste de pagar advogados.");
+        logar("🚨 Foste apanhado nas escutas da Judiciária!");
     }
     atualizarUI();
 }
@@ -163,7 +196,7 @@ function tentarCrime() {
 function fazerNetworking() {
     if(p.dinheiro < 150) return;
     p.dinheiro -= 150; p.cunha = Math.min(100, p.cunha + 15); p.karma = Math.max(0, p.karma - 5);
-    logar("🥂 Almoço de negócios prolongado pago aos connects! Cunha aumentada.");
+    logar("🥂 Jantar de negócios pago aos contactos certos!");
     atualizarUI();
 }
 
