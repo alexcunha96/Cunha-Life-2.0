@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Cunha Life</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div class="game-container">
+        <!-- ECRÃ INICIAL -->
+        <div id="setup-screen" class="setup-screen">
+            <h1 class="logo-title">👑 Cunha Life v3.0</h1>
+            <p class="logo-subtitle">O Verdadeiro Simulador de Vida Português</p>
+            <input type="text" id="player-name" placeholder="Nome do teu cidadão" maxlength="15">
+            <button onclick="iniciarJogo()">✨ Criar Personagem</button>
+        </div>
+
+        <!-- ECRÃ DE JOGO -->
+        <div id="game-screen" class="hidden main-game-layout">
+            <div class="header">
+                <div id="ui-avatar" class="avatar">👶</div>
+                <div class="info">
+                    <h2 id="ui-nome">Alexandre</h2>
+                    <p id="ui-detalhes">Masculino | Hetero</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card"><div class="stat-label">⏳ Idade</div><div id="ui-idade" class="stat-val">0 anos</div></div>
+                <div class="stat-card"><div class="stat-label">💼 Carreira</div><div id="ui-emprego" class="stat-val">Bebé</div></div>
+                <div class="stat-card"><div class="stat-label">💰 Banco</div><div id="ui-dinheiro" class="stat-val">1000€</div></div>
+                <div class="stat-card"><div class="stat-label">🤝 Cunha</div><div id="ui-cunha" class="stat-val">30%</div></div>
+                <div class="stat-card accent"><div class="stat-label">❤️ Saúde</div><div id="ui-saude" class="stat-val">100%</div></div>
+                <div class="stat-card accent"><div class="stat-label">😄 Felicidade</div><div id="ui-felicidade" class="stat-val">100%</div></div>
+            </div>
+
+            <div id="log" class="log-box">Bem-vindo a Portugal!</div>
+
+            <div class="actions-layout" id="action-buttons">
+                <button onclick="envelhecer()">⏳ Avançar 1 Ano</button>
+                <button class="btn-sec" onclick="procurarEmprego()">💼 Procurar Emprego</button>
+                <button class="btn-sec" onclick="fazerNetworking()">🥂 Jantar de Cunha (-150€)</button>
+                <button class="btn-sec" onclick="tentarCrime()">🕶️ Tentar um Esquema</button>
+                <button class="btn-danger" onclick="reiniciar()">🔄 Recomeçar</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/game.js"></script>
+</body>
+</html>
