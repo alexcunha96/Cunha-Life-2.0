@@ -9,12 +9,37 @@
 <body>
 
     <div class="game-container">
-        <!-- ECRÃ INICIAL -->
+        <!-- ECRÃ INICIAL ESTILO BITLIFE -->
         <div id="setup-screen" class="setup-screen">
             <h1 class="logo-title">👑 Cunha Life v3.0</h1>
-            <p class="logo-subtitle">O Verdadeiro Simulador de Vida Português</p>
-            <input type="text" id="player-name" placeholder="Nome do teu cidadão" maxlength="15">
-            <button onclick="iniciarJogo()">✨ Criar Personagem</button>
+            
+            <div class="bitlife-menu">
+                <!-- Bloco do Nome -->
+                <div class="bitlife-card">
+                    <input type="text" id="player-name" value="Marco Silva">
+                    <div class="bitlife-subtitle">Nome</div>
+                </div>
+
+                <!-- Bloco do Género -->
+                <div class="bitlife-card" onclick="alternarGenero()">
+                    <div class="bitlife-value" id="btn-genero">♂️ Masculino</div>
+                    <div class="bitlife-subtitle">Gênero</div>
+                </div>
+
+                <!-- Bloco do País -->
+                <div class="bitlife-card">
+                    <div class="bitlife-value">🇵🇹 Portugal</div>
+                    <div class="bitlife-subtitle">País</div>
+                </div>
+
+                <!-- Bloco da Cidade -->
+                <div class="bitlife-card" onclick="alternarCidade()">
+                    <div class="bitlife-value" id="btn-cidade">🇵🇹 Porto</div>
+                    <div class="bitlife-subtitle">Cidade</div>
+                </div>
+            </div>
+
+            <button class="btn-start" onclick="iniciarJogo()">✨ Iniciar Nova Vida</button>
         </div>
 
         <!-- ECRÃ DE JOGO -->
@@ -23,7 +48,7 @@
                 <div id="ui-avatar" class="avatar">👶</div>
                 <div class="info">
                     <h2 id="ui-nome">Alexandre</h2>
-                    <p id="ui-detalhes">Masculino | Hetero</p>
+                    <p id="ui-detalhes">Masculino | Porto</p>
                 </div>
             </div>
 
