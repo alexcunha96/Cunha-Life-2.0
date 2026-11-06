@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Jogo da Vida</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=4.1">
 </head>
 <body>
 
     <div class="game-container">
-        <!-- ECRÃ INICIAL BITLIFE PORTUGAL COM CUSTOMIZAÇÃO -->
+        <!-- ECRÃ INICIAL -->
         <div id="setup-screen" class="setup-screen">
             <div class="logo-wrapper">
                 <h1 class="logo-title">Jogo da Vida</h1>
@@ -27,31 +27,6 @@
                     <div class="bitlife-subtitle">Gênero</div>
                 </div>
 
-                <div class="bitlife-card" onclick="alternarTipoCabelo()">
-                    <div class="bitlife-value" id="btn-tipo-cabelo">🧑‍💼 Liso/Clássico</div>
-                    <div class="bitlife-subtitle">Estilo do Cabelo</div>
-                </div>
-
-                <div class="bitlife-card" onclick="alternarCorCabelo()">
-                    <div class="bitlife-value" id="btn-cor-cabelo">🟫 Castanho</div>
-                    <div class="bitlife-subtitle">Cor do Cabelo</div>
-                </div>
-
-                <div class="bitlife-card" onclick="alternarPele()">
-                    <div class="bitlife-value" id="btn-pele">🏻 Claro</div>
-                    <div class="bitlife-subtitle">Tom de Pele</div>
-                </div>
-
-                <div class="bitlife-card" onclick="alternarOlhos()">
-                    <div class="bitlife-value" id="btn-olhos">👁️ Normal</div>
-                    <div class="bitlife-subtitle">Olhos</div>
-                </div>
-
-                <div class="bitlife-card">
-                    <div class="bitlife-value">🇵🇹 Portugal</div>
-                    <div class="bitlife-subtitle">País</div>
-                </div>
-
                 <div class="bitlife-card" onclick="alternarCidade()">
                     <div class="bitlife-value" id="btn-cidade">🇵🇹 Porto</div>
                     <div class="bitlife-subtitle">Cidade</div>
@@ -61,16 +36,27 @@
             <button class="btn-start" onclick="iniciarJogo()">✨ Iniciar Nova Vida</button>
         </div>
 
-        <!-- ECRÃ DE JOGO CORRIGIDO -->
+        <!-- ECRÃ DE JOGO COM SALÃO DE BELEZA/CUSTOMIZAÇÃO -->
         <div id="game-screen" class="hidden main-game-layout">
             <div class="header">
-                <!-- Caixa de empilhamento do avatar -->
                 <div class="avatar-wrapper">
-                    <div id="ui-avatar" class="avatar-render">👶</div>
+                    <div id="ui-avatar-cabelo" class="camada-avatar">🧔</div>
+                    <div id="ui-avatar-olhos" class="camada-avatar-olhos">😐</div>
                 </div>
                 <div class="info">
                     <h2 id="ui-nome">Alexandre</h2>
                     <p id="ui-detalhes">Masculino | Porto</p>
+                </div>
+            </div>
+
+            <!-- MENU PASSO A PASSO DE CUSTOMIZAÇÃO DO BONECO -->
+            <div id="customizer-box" class="customizer-panel">
+                <h3>💇‍♂️ Personalizar Boneco</h3>
+                <div class="custom-buttons-grid">
+                    <button class="btn-custom" onclick="alternarTipoCabelo()">💇 Estilo</button>
+                    <button class="btn-custom" onclick="alternarCorCabelo()">🎨 Cor</button>
+                    <button class="btn-custom" onclick="alternarPele()">🫱🏻 Pele</button>
+                    <button class="btn-custom" onclick="alternarOlhos()">👁️ Olhos</button>
                 </div>
             </div>
 
@@ -86,7 +72,6 @@
             </div>
 
             <div id="log" class="log-box">Bem-vindo a Portugal!</div>
-
             <div id="ui-assets" class="assets-view hidden">Garagem/Imóveis vazios.</div>
 
             <div class="actions-layout" id="action-buttons">
@@ -101,6 +86,6 @@
         </div>
     </div>
 
-    <script src="js/game.js"></script>
+    <script src="js/game.js?v=4.1"></script>
 </body>
 </html>
