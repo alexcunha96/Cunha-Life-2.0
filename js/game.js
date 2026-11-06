@@ -7,16 +7,10 @@ let idxCor = 0;
 let idxPele = 0;
 let idxOlhos = 0;
 
-const tiposCabelo = ["Liso/Clássico", "Encaracolado", "Ondulado/Longo", "Careca/Cortado", "Crista/Moderno"];
 const iconesCabeloMasculino = ["🧔", "🧑‍🦱", "👱", "👨‍🦲", "🦹"];
 const iconesCabeloFeminino = ["👩", "👩‍🦱", "👩‍🦰", "👩‍🦲", "👱‍♀️"];
-
-const coresCabelo = ["Castanho", "Loiro", "Ruivo", "Preto", "Colorido/Azul"];
-const tonsPele = ["Claro", "Médio/Moreno", "Escuro", "Pálido"];
 const modificadoresPele = ["🏼", "🏽", "🏾", "🏻"];
-
-const tiposOlhos = ["Normal", "Feliz", "Óculos Escuros", "Óculos de Grau", "Piscando"];
-const iconesOlhos = ["😐", "🙂", "😎", "🤓", "😉"];
+const iconesOlhos = ["😐", "😊", "😎", "🤓", "😉"];
 
 const cidadesLista = ["Porto", "Lisboa", "Braga", "Coimbra", "Faro"];
 
@@ -25,45 +19,59 @@ function alternarGenero() {
     document.getElementById('btn-genero').innerText = generoAtual === "Masculino" ? "♂️ Masculino" : "♀️ Feminino";
 }
 
-function alternarTipoCabelo() {
-    idxCabelo = (idxCabelo + 1) % tiposCabelo.length;
-    document.getElementById('btn-tipo-cabelo').innerText = `💇‍♂️ ${tiposCabelo[idxCabelo]}`;
-}
-
-function alternarCorCabelo() {
-    idxCor = (idxCor + 1) % coresCabelo.length;
-    document.getElementById('btn-cor-cabelo').innerText = `🎨 ${coresCabelo[idxCor]}`;
-}
-
-function alternarPele() {
-    idxPele = (idxPele + 1) % tonsPele.length;
-    document.getElementById('btn-pele').innerText = `${modificadoresPele[idxPele]} ${tonsPele[idxPele]}`;
-}
-
-function alternarOlhos() {
-    idxOlhos = (idxOlhos + 1) % tiposOlhos.length;
-    document.getElementById('btn-olhos').innerText = `👁️ ${tiposOlhos[idxOlhos]}`;
-}
-
 function alternarCidade() {
     let idx = cidadesLista.indexOf(cidadeAtual);
     cidadeAtual = cidadesLista[(idx + 1) % cidadesLista.length];
     document.getElementById('btn-cidade').innerText = `🇵🇹 ${cidadeAtual}`;
 }
 
+// BOTÕES INTERATIVOS PASSO A PASSO
+function alternarTipoCabelo() {
+    idxCabelo = (idxCabelo + 1) % 5;
+    renderizarAvatarDinamicamente();
+}
+
+function alternarCorCabelo() {
+    idxCor = (idxCor + 1) % 4; // Muda tom indireto pelos modificadores
+    renderizarAvatarDinamicamente();
+}
+
+function alternarPele() {
+    idxPele = (idxPele + 1) % modificadoresPele.length;
+    renderizarAvatarDinamicamente();
+}
+
+function alternarOlhos() {
+    idxOlhos = (idxOlhos + 1) % iconesOlhos.length;
+    renderizarAvatarDinamicamente();
+}
+
+function renderizarAvatarDinamicamente() {
+    if(!p.vivo) return;
+    
+    if(p.idade < 3) {
+        document.getElementById('ui-avatar-cabelo').innerText = "👶";
+        document.getElementById('ui-avatar-olhos').innerText = "😐";
+        return;
+    }
+
+    let base = generoAtual === "Masculino" ? iconesCabeloMasculino[idxCabelo] : iconesCabeloFeminino[idxCabelo];
+    // Mescla o cabelo com o tom de pele selecionado
+    let cabeloFinal = idxCabelo === 3 ? "👨‍🦲" : base + modificadoresPele[idxPele];
+    
+    document.getElementById('ui-avatar-cabelo').innerText = cabeloFinal;
+    document.getElementById('ui-avatar-olhos').innerText = iconesOlhos[idxOlhos];
+}
+
 function iniciarJogo() {
     let nomeInput = document.getElementById('player-name').value.trim();
     if(!nomeInput) nomeInput = "Marco Silva";
-
-    let baseCabelo = generoAtual === "Masculino" ? iconesCabeloMasculino[idxCabelo] : iconesCabeloFeminino[idxCabelo];
-    let avatarTopo = idxCabelo === 3 ? "👨‍🦲" : baseCabelo + modificadoresPele[idxPele];
 
     p = {
         nome: nomeInput, idade: 0, dinheiro: 1000, 
         cunha: Math.floor(Math.random() * 40) + 10,
         saude: 100, felicidade: 90, emprego: "Bebé", vivo: true,
         genero: generoAtual, cidade: cidadeAtual,
-        avatarCabelo: avatarTopo, avatarOlhos: iconesOlhos[idxOlhos],
         loucura: Math.floor(Math.random() * 100), karma: Math.floor(Math.random() * 40) + 60,
         bens: []
     };
@@ -75,7 +83,7 @@ function iniciarJogo() {
     document.getElementById('ui-detalhes').innerText = `${p.genero} | ${p.cidade}`;
     
     atualizarUI();
-    logar(`✨ Nasceste em ${p.cidade}! Loucura: ${p.loucura}%, Karma: ${p.karma}%. Cabelo: ${coresCabelo[idxCor]}.`);
+    logar(`✨ Nasceste em ${p.cidade}, Portugal! Usa as opções para mudar o teu aspeto físico.`);
 }
 
 function atualizarUI() {
@@ -88,13 +96,7 @@ function atualizarUI() {
     document.getElementById('ui-loucura').innerText = `${p.loucura}%`;
     document.getElementById('ui-karma').innerText = `${p.karma}%`;
 
-    if(!p.vivo) {
-        document.getElementById('ui-avatar').innerHTML = "💀";
-    } else if(p.idade < 3) {
-        document.getElementById('ui-avatar').innerHTML = "👶";
-    } else {
-        document.getElementById('ui-avatar').innerHTML = `${p.avatarCabelo}\n${p.avatarOlhos}`;
-    }
+    renderizarAvatarDinamicamente();
 
     let btnEscola = document.getElementById('btn-estudar');
     if(p.idade >= 6 && p.idade < 18) { btnEscola.style.display = "block"; } else { btnEscola.style.display = "none"; }
@@ -106,6 +108,8 @@ function atualizarUI() {
     } else { assetsBox.classList.add('hidden'); }
 
     if(!p.vivo) {
+        document.getElementById('ui-avatar-cabelo').innerText = "💀";
+        document.getElementById('ui-avatar-olhos').innerText = "";
         document.getElementById('action-buttons').innerHTML = `<button class="btn-danger" style="width:100%" onclick="reiniciar()">🔄 Fim de Jogo - Recomeçar</button>`;
     }
 }
@@ -143,7 +147,7 @@ function atividadesEstudante() {
     if(Math.random() > 0.5) {
         p.cunha = Math.min(100, p.cunha + 12);
         p.karma = Math.max(0, p.karma - 10);
-        logar("🎓 Entraste na Associação de Estudantes! (+Cunha, -Karma).");
+        logar("🎓 Entraste na Associação de Estudantes!");
     } else {
         p.felicidade = Math.min(100, p.felicidade + 15);
         logar("📚 Estudaste bastante com os teus colegas de turma.");
