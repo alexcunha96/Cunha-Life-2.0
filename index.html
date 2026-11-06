@@ -3,36 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Cunha Life</title>
+    <title>Cunha Life v4.0</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
     <div class="game-container">
-        <!-- ECRÃ INICIAL ESTILO BITLIFE -->
+        <!-- ECRÃ INICIAL BITLIFE ULTRA -->
         <div id="setup-screen" class="setup-screen">
-            <h1 class="logo-title">👑 Cunha Life v3.0</h1>
+            <h1 class="logo-title">👑 Cunha Life v4.0</h1>
             
             <div class="bitlife-menu">
-                <!-- Bloco do Nome -->
                 <div class="bitlife-card">
                     <input type="text" id="player-name" value="Marco Silva">
                     <div class="bitlife-subtitle">Nome</div>
                 </div>
 
-                <!-- Bloco do Género -->
                 <div class="bitlife-card" onclick="alternarGenero()">
                     <div class="bitlife-value" id="btn-genero">♂️ Masculino</div>
                     <div class="bitlife-subtitle">Gênero</div>
                 </div>
 
-                <!-- Bloco do País -->
+                <div class="bitlife-card" onclick="alternarCabelo()">
+                    <div class="bitlife-value" id="btn-cabelo">👨‍💼 Estilo Clássico</div>
+                    <div class="bitlife-subtitle">Aparência</div>
+                </div>
+
                 <div class="bitlife-card">
                     <div class="bitlife-value">🇵🇹 Portugal</div>
                     <div class="bitlife-subtitle">País</div>
                 </div>
 
-                <!-- Bloco da Cidade -->
                 <div class="bitlife-card" onclick="alternarCidade()">
                     <div class="bitlife-value" id="btn-cidade">🇵🇹 Porto</div>
                     <div class="bitlife-subtitle">Cidade</div>
@@ -59,13 +60,20 @@
                 <div class="stat-card"><div class="stat-label">🤝 Cunha</div><div id="ui-cunha" class="stat-val">30%</div></div>
                 <div class="stat-card accent"><div class="stat-label">❤️ Saúde</div><div id="ui-saude" class="stat-val">100%</div></div>
                 <div class="stat-card accent"><div class="stat-label">😄 Felicidade</div><div id="ui-felicidade" class="stat-val">100%</div></div>
+                <div class="stat-card oculto"><div class="stat-label">🔥 Loucura</div><div id="ui-loucura" class="stat-val">0%</div></div>
+                <div class="stat-card oculto"><div class="stat-label">☯️ Karma</div><div id="ui-karma" class="stat-val">100%</div></div>
             </div>
 
             <div id="log" class="log-box">Bem-vindo a Portugal!</div>
 
+            <!-- Janela de Bens Comprados -->
+            <div id="ui-assets" class="assets-view hidden">Garagem/Imóveis vazios.</div>
+
             <div class="actions-layout" id="action-buttons">
                 <button onclick="envelhecer()">⏳ Avançar 1 Ano</button>
-                <button class="btn-sec" onclick="procurarEmprego()">💼 Procurar Emprego</button>
+                <button class="btn-sec" id="btn-estudar" onclick="atividadesEstudante()" style="display:none">🎒 Atividades Escolares</button>
+                <button class="btn-sec" onclick="procurarEmprego()">💼 Procurar Trabalho</button>
+                <button class="btn-sec" onclick="abrirStand()">🚗 Stand & Imobiliária</button>
                 <button class="btn-sec" onclick="fazerNetworking()">🥂 Jantar de Cunha (-150€)</button>
                 <button class="btn-sec" onclick="tentarCrime()">🕶️ Tentar um Esquema</button>
                 <button class="btn-danger" onclick="reiniciar()">🔄 Recomeçar</button>
