@@ -28,11 +28,38 @@ button:active { transform: scale(0.98); }
 button.btn-sec { background: rgba(255,255,255,0.1); color: var(--text); }
 button.btn-danger { background: var(--accent); color: #fff; }
 .setup-screen { display: flex; flex-direction: column; gap: 15px; text-align: center; padding: 10px 0; }
-.logo-title { color: #ffffff; font-size: 26px; }
 .main-game-layout { display: flex; flex-direction: column; gap: 15px; }
 .hidden { display: none !important; }
 
-/* DESIGN BITLIFE ORIGINAL */
+/* LOGOTIPO DO JOGO COM AS CORES DE PORTUGAL */
+.logo-wrapper {
+    margin-bottom: 5px;
+    padding: 10px 0;
+}
+
+.logo-title {
+    font-size: 34px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+    /* Aplica o gradiente Verde e Vermelho nas letras */
+    background: linear-gradient(to right, #009c3a 45%, #ff0000 55%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5));
+}
+
+.logo-subtitle {
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 7px;
+    margin-top: -2px;
+    opacity: 0.8;
+    text-indent: 7px; /* Mantém o texto perfeitamente centrado com o espaçamento */
+}
+
+/* DESIGN DO MENU BITLIFE */
 .bitlife-menu { display: flex; flex-direction: column; gap: 12px; width: 100%; padding: 5px 0; }
 .bitlife-card { background: var(--primary); border: 3px solid #ffffff; border-radius: 50px; padding: 11px 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); cursor: pointer; }
 .bitlife-card input { background: transparent; border: none; color: #ffffff; font-size: 20px; font-weight: bold; text-align: center; width: 100%; font-family: inherit; }
