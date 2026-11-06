@@ -2,7 +2,6 @@ let p = {};
 let generoAtual = "Masculino";
 let cidadeAtual = "Porto";
 
-// Listas e Índices de Customização
 let idxCabelo = 0;
 let idxCor = 0;
 let idxPele = 0;
@@ -17,7 +16,7 @@ const tonsPele = ["Claro", "Médio/Moreno", "Escuro", "Pálido"];
 const modificadoresPele = ["🏼", "🏽", "🏾", "🏻"];
 
 const tiposOlhos = ["Normal", "Feliz", "Óculos Escuros", "Óculos de Grau", "Piscando"];
-const iconesOlhos = [" [ 😐 ] ", " [ ^_^ ] ", " [ 😎 ] ", " [ 🤓 ] ", " [ 😉 ] "];
+const iconesOlhos = ["😐", "🙂", "😎", "🤓", "😉"];
 
 const cidadesLista = ["Porto", "Lisboa", "Braga", "Coimbra", "Faro"];
 
@@ -56,9 +55,7 @@ function iniciarJogo() {
     let nomeInput = document.getElementById('player-name').value.trim();
     if(!nomeInput) nomeInput = "Marco Silva";
 
-    // Define o topo (cabelo + pele) gerado pelas escolhas do menu
     let baseCabelo = generoAtual === "Masculino" ? iconesCabeloMasculino[idxCabelo] : iconesCabeloFeminino[idxCabelo];
-    // Se não for careca, injeta o tom de pele no emoji de cabelo do iOS/iPhone
     let avatarTopo = idxCabelo === 3 ? "👨‍🦲" : baseCabelo + modificadoresPele[idxPele];
 
     p = {
@@ -91,14 +88,12 @@ function atualizarUI() {
     document.getElementById('ui-loucura').innerText = `${p.loucura}%`;
     document.getElementById('ui-karma').innerText = `${p.karma}%`;
 
-    // Atualização de Avatar estruturada passo a passo
     if(!p.vivo) {
-        document.getElementById('ui-avatar').innerHTML = "💀<br>[ X_X ]";
+        document.getElementById('ui-avatar').innerHTML = "💀";
     } else if(p.idade < 3) {
-        document.getElementById('ui-avatar').innerHTML = "👶<br>[ 😐 ]";
+        document.getElementById('ui-avatar').innerHTML = "👶";
     } else {
-        // Junta o Cabelo/Pele customizado com o formato de Olhos escolhido
-        document.getElementById('ui-avatar').innerHTML = `${p.avatarCabelo}<br>${p.avatarOlhos}`;
+        document.getElementById('ui-avatar').innerHTML = `${p.avatarCabelo}\n${p.avatarOlhos}`;
     }
 
     let btnEscola = document.getElementById('btn-estudar');
@@ -172,7 +167,7 @@ function abrirStand() {
 
 function procurarEmprego() {
     if(p.idade < 18) { logar("❌ Demasiado novo."); return; }
-    if(p.cunha > 65) { p.emprego = "Administrador"; logar("💼 Ajustes diretos garantiram-te a chefia de uma estatal!"); }
+    if(p.cunha > 65) { p.emprego = "Administrador"; logar("💼 Ajustes diretos garantiram-te a chefia de uma empresa estatal!"); }
     else if(p.cunha > 40) { p.emprego = "Deputado"; logar("💼 Conseguiste colocação nas listas partidárias!"); }
     else { p.emprego = "Técnico de IT"; logar("💼 Contratado numa consultora."); }
     atualizarUI();
