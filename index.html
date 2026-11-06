@@ -27,25 +27,21 @@
                     <div class="bitlife-subtitle">Gênero</div>
                 </div>
 
-                <!-- Passo a Passo: Tipo de Cabelo -->
                 <div class="bitlife-card" onclick="alternarTipoCabelo()">
                     <div class="bitlife-value" id="btn-tipo-cabelo">🧑‍💼 Liso/Clássico</div>
                     <div class="bitlife-subtitle">Estilo do Cabelo</div>
                 </div>
 
-                <!-- Passo a Passo: Cor do Cabelo -->
                 <div class="bitlife-card" onclick="alternarCorCabelo()">
                     <div class="bitlife-value" id="btn-cor-cabelo">🟫 Castanho</div>
                     <div class="bitlife-subtitle">Cor do Cabelo</div>
                 </div>
 
-                <!-- Passo a Passo: Tom de Pele -->
                 <div class="bitlife-card" onclick="alternarPele()">
                     <div class="bitlife-value" id="btn-pele">🏻 Claro</div>
                     <div class="bitlife-subtitle">Tom de Pele</div>
                 </div>
 
-                <!-- Passo a Passo: Formato dos Olhos -->
                 <div class="bitlife-card" onclick="alternarOlhos()">
                     <div class="bitlife-value" id="btn-olhos">👁️ Normal</div>
                     <div class="bitlife-subtitle">Olhos</div>
@@ -65,10 +61,13 @@
             <button class="btn-start" onclick="iniciarJogo()">✨ Iniciar Nova Vida</button>
         </div>
 
-        <!-- ECRÃ DE JOGO -->
+        <!-- ECRÃ DE JOGO CORRIGIDO -->
         <div id="game-screen" class="hidden main-game-layout">
             <div class="header">
-                <div id="ui-avatar" class="avatar">👶</div>
+                <!-- Caixa de empilhamento do avatar -->
+                <div class="avatar-wrapper">
+                    <div id="ui-avatar" class="avatar-render">👶</div>
+                </div>
                 <div class="info">
                     <h2 id="ui-nome">Alexandre</h2>
                     <p id="ui-detalhes">Masculino | Porto</p>
