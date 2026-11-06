@@ -12,24 +12,60 @@ body { background: var(--bg); color: var(--text); font-family: -apple-system, Bl
 .game-container { width: 100%; max-width: 450px; background: var(--card); border-radius: 20px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); display: flex; flex-direction: column; gap: 15px; }
 .header { display: flex; align-items: center; gap: 15px; background: rgba(255,255,255,0.05); padding: 12px; border-radius: 15px; }
 
-/* FIXADOR VISUAL DO AVATAR ROUND */
+/* FIXADOR SUPREMO DO AVATAR SOBREPOSTO */
 .avatar-wrapper {
-    background: rgba(255,255,255,0.1);
-    width: 80px;
-    height: 80px;
+    background: #2a2a2a;
+    width: 75px;
+    height: 75px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    position: relative;
     overflow: hidden;
+    border: 2px solid rgba(255,255,255,0.2);
     flex-shrink: 0;
 }
 
-.avatar-render {
-    font-size: 26px;
-    line-height: 1.2;
+.camada-avatar {
+    font-size: 42px;
+    position: absolute;
+    top: 5px;
+    z-index: 1;
+}
+
+.camada-avatar-olhos {
+    font-size: 20px;
+    position: absolute;
+    top: 36px;
+    z-index: 2;
+}
+
+/* PAINEL DE CUSTOMIZAÇÃO PASSO A PASSO */
+.customizer-panel {
+    background: rgba(255,255,255,0.03);
+    padding: 12px;
+    border-radius: 15px;
+    border: 1px solid rgba(255,255,255,0.08);
+}
+.customizer-panel h3 {
+    font-size: 13px;
+    color: #aaa;
+    text-transform: uppercase;
+    margin-bottom: 8px;
     text-align: center;
-    white-space: pre-line;
+}
+.custom-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+}
+.btn-custom {
+    padding: 8px !important;
+    font-size: 12px !important;
+    background: #008be3 !important;
+    color: #fff !important;
+    border-radius: 8px !important;
 }
 
 .info h2 { font-size: 18px; margin-bottom: 2px; }
@@ -40,7 +76,7 @@ body { background: var(--bg); color: var(--text); font-family: -apple-system, Bl
 .stat-card.oculto { border-left-color: #ff9900; }
 .stat-label { font-size: 11px; color: #aaa; text-transform: uppercase; font-weight: bold; }
 .stat-val { font-size: 16px; font-weight: bold; margin-top: 2px; }
-.log-box { background: #000; border-radius: 12px; padding: 12px; height: 130px; overflow-y: auto; font-family: monospace; font-size: 13px; border: 1px solid rgba(255,255,255,0.1); white-space: pre-line; }
+.log-box { background: #000; border-radius: 12px; padding: 12px; height: 110px; overflow-y: auto; font-family: monospace; font-size: 13px; border: 1px solid rgba(255,255,255,0.1); white-space: pre-line; }
 .assets-view { background: rgba(255,255,255,0.02); padding: 10px; border-radius: 12px; font-size: 13px; border: 1px dashed #555; color: #00ff88; }
 .actions-layout { display: flex; flex-direction: column; gap: 8px; }
 button { background: var(--success); color: #000; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: bold; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
@@ -56,7 +92,7 @@ button.btn-danger { background: var(--accent); color: #fff; }
 .logo-title { font-size: 34px; font-weight: 900; text-transform: uppercase; letter-spacing: -1px; background: linear-gradient(to right, #009c3a 45%, #ff0000 55%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.5)); }
 .logo-subtitle { color: #ffffff; font-size: 12px; font-weight: bold; letter-spacing: 7px; margin-top: -2px; opacity: 0.8; text-indent: 7px; }
 
-/* MENU BITLIFE */
+/* MENU */
 .bitlife-menu { display: flex; flex-direction: column; gap: 12px; width: 100%; padding: 5px 0; }
 .bitlife-card { background: var(--primary); border: 3px solid #ffffff; border-radius: 50px; padding: 11px 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); cursor: pointer; }
 .bitlife-card input { background: transparent; border: none; color: #ffffff; font-size: 20px; font-weight: bold; text-align: center; width: 100%; font-family: inherit; }
