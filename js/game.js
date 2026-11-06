@@ -1,8 +1,24 @@
 let p = {};
+let generoAtual = "Masculino";
+let cidadeAtual = "Porto";
+
+const cidadesLista = ["Porto", "Lisboa", "Braga", "Coimbra", "Faro"];
+
+function alternarGenero() {
+    generoAtual = generoAtual === "Masculino" ? "Feminino" : "Masculino";
+    document.getElementById('btn-genero').innerText = generoAtual === "Masculino" ? "♂️ Masculino" : "♀️ Feminino";
+}
+
+function alternarCidade() {
+    let indice = cidadesLista.indexOf(cidadeAtual);
+    indice = (indice + 1) % cidadesLista.length;
+    cidadeAtual = cidadesLista[indice];
+    document.getElementById('btn-cidade').innerText = `🇵🇹 ${cidadeAtual}`;
+}
 
 function iniciarJogo() {
     let nomeInput = document.getElementById('player-name').value.trim();
-    if(!nomeInput) nomeInput = "Alexandre";
+    if(!nomeInput) nomeInput = "Marco Silva";
 
     p = {
         nome: nomeInput, 
@@ -13,19 +29,22 @@ function iniciarJogo() {
         felicidade: 90, 
         emprego: "Bebé", 
         vivo: true,
-        genero: Math.random() > 0.5 ? "Masculino" : "Feminino",
+        genero: generoAtual,
+        cidade: cidadeAtual,
         orientacao: Math.random() > 0.3 ? "Hetero" : "Gay"
     };
 
     document.getElementById('setup-screen').classList.add('hidden');
     document.getElementById('game-screen').classList.remove('hidden');
+    
+    document.getElementById('ui-nome').innerText = p.nome;
+    document.getElementById('ui-detalhes').innerText = `${p.genero} | ${p.cidade}`;
+    
     atualizarUI();
-    logar(`✨ Nasceste! É um orgulho ser cidadão nacional.`);
+    logar(`✨ Nasceste em ${p.cidade}, Portugal! É um orgulho ser cidadão nacional.`);
 }
 
 function atualizarUI() {
-    document.getElementById('ui-nome').innerText = p.nome;
-    document.getElementById('ui-detalhes').innerText = `${p.genero} | ${p.orientacao}`;
     document.getElementById('ui-idade').innerText = `${p.idade} anos`;
     document.getElementById('ui-emprego').innerText = p.emprego;
     document.getElementById('ui-dinheiro').innerText = `${p.dinheiro}€`;
